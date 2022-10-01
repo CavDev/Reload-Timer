@@ -15,7 +15,7 @@ It was developed with tkinter
 Seriously, tkinter to do this kind of software is really painful
 To avoid tkinter's ugly interface, I used a nice library of controls: https://github.com/rdbende/Sun-Valley-ttk-theme :)
 
-HELP.txt（已更新）
+# HELP.txt（已更新）
 注意*-----------------
 RETIME 现已支持自定义设置，请使用记事本或其它文本编辑器打开程序主目录下文件 settings.ret 查看如何配置
 -------------------
