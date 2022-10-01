@@ -17,7 +17,7 @@ To avoid tkinter's ugly interface, I used a nice library of controls: https://gi
 
 # HELP.txt（已更新）
 注意*
-RETIME 现已支持自定义设置，请使用记事本或其它文本编辑器打开程序主目录下文件 settings.ret 查看如何配置
+**RETIME 现已支持自定义设置，请使用记事本或其它文本编辑器打开程序主目录下文件 settings.ret 查看如何配置**
 
 1、双击计时显示区（00 : 00 : 00）即可切换主题（深色和浅色）
 2、点击上方显示的系统时间（精确到秒）即可查看当前年份的日历
