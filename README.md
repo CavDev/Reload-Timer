@@ -1,6 +1,5 @@
 # RETIME.tkinter
-一个简单的倒计时应用程序
-使用Python Tkinter开发
+一个使用Python Tkinter开发的简单倒计时软件
 
 ![](./app.png)
 ![](./app-dark.png)
