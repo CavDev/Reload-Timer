@@ -1,5 +1,6 @@
-# RETIME.tkinter
+# RNoNea-Timer
 一个使用Python Tkinter开发的简单倒计时GUI软件
+
 
 ![浅色](./app.png)
 ![暗色](./app-dark.png)
