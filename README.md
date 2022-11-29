@@ -1,4 +1,4 @@
-# RNoNea-Timer
+# Reload Timer
 一个使用Python Tkinter开发的简单倒计时GUI软件
 
 
