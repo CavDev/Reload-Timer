@@ -4,6 +4,7 @@
 
 ![浅色](./app.png)
 ![暗色](./app-dark.png)
+![设置](./Settings.png)
 
 说真的，用tkinter来做这种软件真的很痛苦
 为了避免tkinter的丑逼界面，我使用了一个挺牛逼的控件库：https://github.com/rdbende/Sun-Valley-ttk-theme :)
