@@ -9,11 +9,6 @@ import os
 import random as rd
 from pygame import mixer # 用于播放音乐
 
-'''
-# 写后感：用Tkinter写计时器是真几把难受
-# 这辈子见过最捞的GUI框架还得是tkinter
-'''
-
 isOpenTopMost = 0 # false
 isOpenTopMost2 = 1 # fuckingfalse
 
@@ -27,10 +22,11 @@ class Values: # 一些值和变量
     talkSentence = ""
     talkTitle = ""
     playVolument = 0.0
+    tranValueWindow = 0.0 # 窗体透明度
 
     # 设置判断
-    isTimeOutTalk = False
-    isTimeOutSayGuy = False
+    # isTimeOutTalk = False
+    # isTimeOutSayGuy = False
     isProtectShutdown = False
     isUseDarkMode = False
 
@@ -51,18 +47,13 @@ class Events: # 事件
             with open('settings.ret', 'r', encoding='utf-8') as settingsFile:
                 readDataList = settingsFile.readlines()
 
+                Values.talkSentence = readDataList[0].replace("\n", "")
+                Values.talkTitle = readDataList[1].replace("\n", "")
+
                 if readDataList[2].replace("\n", "").lower() == 'yes': # 检查是否开启定时关机保护
                     Values.isProtectShutdown = True
                 elif readDataList[2].replace("\n", "").lower() == 'no':
                     Values.isProtectShutdown = False
-
-                if readDataList[4].replace("\n", "").lower() == 'yes': # 检查是否开启dark mode
-                    Values.isUseDarkMode = True
-                elif readDataList[4].replace("\n", "").lower() == 'no':
-                    Values.isUseDarkMode = False
-
-                Values.talkSentence = readDataList[0].replace("\n", "")
-                Values.talkTitle = readDataList[1].replace("\n", "")
 
                 if float(readDataList[3].replace("\n", "")) < 0:
                     Values.playVolument = 0.0
@@ -70,6 +61,19 @@ class Events: # 事件
                     Values.playVolument = 100.0
                 else:
                     Values.playVolument = float(readDataList[3].replace("\n", ""))
+                    
+                if readDataList[4].replace("\n", "").lower() == 'yes': # 检查是否开启dark mode
+                    Values.isUseDarkMode = True
+                elif readDataList[4].replace("\n", "").lower() == 'no':
+                    Values.isUseDarkMode = False
+
+                if float(readDataList[5].replace("\n", "")) <= 0: # 窗体透明度
+                    Values.tranValueWindow = 0.35
+                elif float(readDataList[5].replace("\n", "")) > 1:
+                    Values.tranValueWindow = 1.0
+                else:
+                    Values.tranValueWindow = float(readDataList[5].replace("\n", ""))
+
         except: 
             pass # 报错则不进行配置
 
@@ -144,7 +148,7 @@ class Events: # 事件
                     if Values.s == int(AlartClock.get()): # 当倒计时结束
                         # 检查字符串是否为空
                         if len(Values.talkSentence) == 0 or len(Values.talkTitle) == 0:
-                            roleList = ["NSX7（RETIME By NSX7）", "牛爷爷", "高级特工穿山甲", "刘华强", "摘下眼镜的杰哥", "昏睡中的彬彬", "鸡哥", "正在抽锐刻5的顶针"]
+                            roleList = ["NSX7（ReloadTimer By NSX7）", "牛爷爷", "高级特工穿山甲", "刘华强", "摘下眼镜的杰哥", "昏睡中的彬彬", "鸡哥", "正在抽锐刻5的顶针"]
                             whoSay = roleList[rd.randint(0, len(roleList) - 1)]
                             randomTips = rd.randint(1, 20)
 
@@ -181,7 +185,7 @@ class Events: # 事件
             Values.fuckThread = True
             
             # 当点击停止计时之后，用break结束傻逼线程
-            # 操你妈的傻逼python
+            root.MainWindow.title('ReloadTimer')
             
             mixer.music.pause() # 暂停播放
 
@@ -235,6 +239,9 @@ class Events: # 事件
         except:
             pass
     
+    def changeWindowTitle(event):
+        root.MainWindow.title('ReloadTimer' + 2*" " + '-' + 2*" " + AlartClock.get())
+
                    
 class Root:
     def __init__(self): # 控件实例化
@@ -246,12 +253,26 @@ class Root:
     def creatWindow(self):
         MainWindow = tk.Tk()
         MainWindow.geometry('695x225')
-        MainWindow.title('RETIME')
+        MainWindow.title('ReloadTimer')
         MainWindow.resizable(width=True, height=False)
         MainWindow.iconbitmap('ico.ico')
-       
-        return MainWindow
         
+        return MainWindow
+
+    def setWindowTran(self): # 设定窗体透明度
+        tempValue = Values.tranValueWindow
+
+        try: 
+            if tempValue == 1 or tempValue <= 0:
+                pass
+            elif tempValue < 0.35:
+                self.MainWindow.attributes ("-alpha", 0.35)
+            else:
+                self.MainWindow.attributes ("-alpha", tempValue)
+        except:
+            pass
+        
+
     def MainLoop(self):
         self.MainWindow.mainloop()
         
@@ -313,6 +334,7 @@ class MainFrame:
         AlartClock.set('60')
         tbx = Entry(self.rootFrame, textvariable=AlartClock, width=10)
         tbx.pack(side='left', anchor='w', padx=8, pady=18)
+        tbx.bind('<Return>', Events.changeWindowTitle)
         
         return tbx
     
@@ -352,5 +374,6 @@ if __name__ == '__main__':
     thread = threading.Thread(target=Events.staticGetTime) # 启动线程，同步系统时间
     thread.setDaemon(True)
     thread.start()
-
-    root.MainLoop()
+    
+    root.setWindowTran() # 设定窗体透明度
+    root.MainLoop() # 信息循环
