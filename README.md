@@ -1,4 +1,4 @@
-# Reload Timer
+# Reload Timer 2.0
 一个使用Python Tkinter开发的简单倒计时GUI软件
 
 
