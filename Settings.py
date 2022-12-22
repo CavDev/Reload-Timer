@@ -65,10 +65,14 @@ class onLoad:
 
 
 class Events:
-    def Github(event): pass
+    def Github(event): 
+        webbrowser.open('github.com/CavDev/Reload-Timer')
 
     def Bilibili(event): 
-        webbrowser.open('space.bilibili.com/396631212')
+        x = msg.showwarning('Question', "Open?")
+        if x == 'OK'.lower:
+            webbrowser.open('space.bilibili.com/396631212')
+        
 
     def pickFileDialog(event): # 帮助
         # filetypes = [('MP3', '.mp3')]
@@ -80,7 +84,7 @@ class Events:
         \n
         \n
         默认铃声是 Kordhell 的 Live Another Day\n
-        他和疤王合作出的 PSYCHX 专辑也很炸 可以去听
+        推荐去听他和疤王合作出的 PSYCHX 专辑 (*/ω＼*)
         """
 
         msg.askyesno("帮助", strTemp)
@@ -173,12 +177,12 @@ class WinGUI(tk.Tk):
         return btn
 
     def __tk_label_lb22zaeb(self):
-        label = Label(self,text="NsX7 Create in 2022/11/29", foreground='gray')
+        label = Label(self,text="sukuw0 Create in 2022/11/29", foreground='gray')
         label.place(x=230, y=450, width=200, height=24)
         return label
 
     def __tk_label_lb230u4c(self):
-        label = Label(self,text="v2.0")
+        label = Label(self,text="v2.1")
         label.place(x=340, y=470, width=84, height=24)
         return label
     

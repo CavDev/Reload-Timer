@@ -3,6 +3,7 @@ from tkinter.ttk import *
 import tkinter.messagebox as msg
 import time
 import calendar
+from tkdev4 import DevManage
 import sv_ttk
 import threading
 import os
@@ -10,7 +11,7 @@ import random as rd
 from pygame import mixer # 用于播放音乐
 
 isOpenTopMost = 0 # false
-isOpenTopMost2 = 1 # fuckingfalse
+isOpenTopMost2 = 1 # true
 
 class Values: # 一些值和变量
     timeClockClick = 0
@@ -81,12 +82,22 @@ class Events: # 事件
         global themeValue
 
         if Values.timeClockClick == 1: # timeclockclick初始为0
+            #timeClockClick 用于实现双击切换窗体主题
+
+            mn = DevManage(root.MainWindow) # Title Bar Theme change
+
             if themeValue == 'light':
                 themeValue = 'dark'
+                try:
+                    mn.dwm_set_window_attribute_use_dark_mode()
+                except: pass
             elif themeValue == 'dark':
                 themeValue = 'light'
+                try:
+                    mn.dwm_set_window_attribute_use_light_mode()
+                except: pass
 
-            sv_ttk.set_theme(themeValue) # 更换主题
+            sv_ttk.set_theme(themeValue) # 更换主题           
 
             Values.timeClockClick = 0
         elif Values.timeClockClick != 2:
@@ -185,7 +196,7 @@ class Events: # 事件
             Values.fuckThread = True
             
             # 当点击停止计时之后，用break结束傻逼线程
-            root.MainWindow.title('ReloadTimer')
+            root.MainWindow.title('ReloadTimer') # 恢复标题
             
             mixer.music.pause() # 暂停播放
 
@@ -370,6 +381,7 @@ if __name__ == '__main__':
     mixer.init() # 初始化mixer用于播放
 
     sv_ttk.set_theme(themeValue)
+    
     
     thread = threading.Thread(target=Events.staticGetTime) # 启动线程，同步系统时间
     thread.setDaemon(True)
