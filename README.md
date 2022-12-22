@@ -2,9 +2,9 @@
 一个使用Python Tkinter开发的简单倒计时GUI软件
 
 
-![浅色](./app.png)
-![暗色](./app-dark.png)
-![设置](./Settings.png)
+![浅色](./img/app.png)
+![暗色](./img/app-dark.png)
+![设置](./img/Settings.png)
 
 说真的，用tkinter来做这种软件真的很痛苦
 为了避免tkinter的丑逼界面，我使用了一个挺牛逼的控件库：https://github.com/rdbende/Sun-Valley-ttk-theme :)
